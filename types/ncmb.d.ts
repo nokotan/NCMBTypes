@@ -3,7 +3,7 @@ import { DataConstructor } from "./datastore"
 /**
  * すべてのNCMBクラスおよびメソッドを定義します。
  */
-export declare class NCMB {
+declare class NCMB {
     /**
      * @param apikey アプリケーションキー。必須
      * @param clientkey クライアントキー。必須
@@ -41,3 +41,5 @@ export declare class NCMB {
      */
     getResponseValidation(): any;
 }
+
+export = NCMB;
