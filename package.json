@@ -1,0 +1,15 @@
+{
+  "name": "@types/ncmb",
+  "version": "3.0.2",
+  "description": "type declarations for ncmb library",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "kamenokonokotan",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.7.4"
+  },
+  "types": "types/ncmb.d.ts"
+}
