@@ -6,10 +6,10 @@ declare namespace NCMB {
         /**
          * @method
          * @name NCMB.AclConstructor#new
-         * @param {Object} permissions Acl情報のJSONオブジェクト
+         * @param {Object} [permissions] Acl情報のJSONオブジェクト
          * @returns {NCMB.Acl}
          */
-        new(permissions: any): NCMB.Acl;
+        new(permissions?: any): NCMB.Acl;
     }
     /**
     * オブジェクトへのアクセス権限を設定するクラスです。
@@ -88,300 +88,16 @@ declare namespace NCMB {
     }
     /**
      * @interface NCMB.DataStoreConstructor
-     * @extends {Query}
+     * @extends Query<DataStore>
      */
-    interface DataStoreConstructor extends Query {
+    interface DataStoreConstructor extends Query<DataStore> {
         /**
          * @method
          * @name NCMB.DataStoreConstructor#new
-         * @param {string} name mobile backend にインスタンスを保存するクラス名。
+         * @param {object} [attrs]
          * @returns {NCMB.DataStore}
          */
-        new(name: string): NCMB.DataStore;
-        /**
-         * クエリを自分で記述して設定します。
-         *
-         * @method Query#where
-         * @param {Object} where JSON形式のクエリオブジェクト
-         * @return {this}
-         */
-        where(where: any): this;
-        /**
-         * 指定したキーの値が条件と等しいオブジェクトを検索します。
-         *
-         * @method Query#equalTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        equalTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件と等しくないオブジェクトを検索します。
-         *
-         * @method Query#notEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        notEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より小さいオブジェクトを検索します。
-         *
-         * @method Query#lessThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以下のオブジェクトを検索します。
-         *
-         * @method Query#lessThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より大きいオブジェクトを検索します。
-         *
-         * @method Query#greaterThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以上のオブジェクトを検索します。
-         *
-         * @method Query#greaterThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#in
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        in(key: string, values: any[]): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notIn
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notIn(key: string, values: any[]): this;
-        /**
-         * 指定したキーに値が存在するオブジェクトを検索します。
-         * existにfalseが設定されている場合、指定したキーに値が存在しないオブジェクトを検索します。
-         *
-         * @method Query#exists
-         * @param {string} key 値を比較するキー
-         * @param {boolean} exist falseを設定した場合、値が存在しないオブジェクトを検索する。省略可能。
-         * @return {this}
-         */
-        exists(key: string, exist: boolean): this;
-        /**
-         * 指定したキーの値が指定した正規表現に合致する存在するオブジェクトを検索します。
-         *
-         * @method Query#regularExpressionTo
-         * @param {string} key 値を比較するキー
-         * @param {string} regex 検索する正規表現
-         * @return {this}
-         */
-        regularExpressionTo(key: string, regex: string): this;
-        /**
-         * 指定したキーの配列内の値のいずれかが、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#inArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        inArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のすべての値を含むオブジェクトを検索します。
-         *
-         * @method Query#allInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        allInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#near
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @return {this}
-         */
-        near(key: string, location: NCMB.GeoPoint): this;
-        /**
-         * 検索範囲内(Km)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinKilometers
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(Km)
-         * @return {this}
-         */
-        withinKilometers(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(ml)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinMiles
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(ml)
-         * @return {this}
-         */
-        withinMiles(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(rad)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinRadians
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(rad)
-         * @return {this}
-         */
-        withinRadians(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲を南西と北東の位置情報から矩形で設定し、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinSquare
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} southWestVertex 検索矩形の南西側の頂点
-         * @param {NCMB.GeoPoint} northEastVertex 検索矩形の北東側の頂点
-         * @return {this}
-         */
-        withinSquare(key: string, southWestVertex: NCMB.GeoPoint, northEastVertex: NCMB.GeoPoint): this;
-        /**
-         * 複数の検索条件を設定し、いずれかに合致するオブジェクトを検索します。
-         * 配列で複数の条件を一度に設定でき、複数回実行することで検索条件を追加できます。
-         *
-         * @method Query#or
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        or(subqueries: any[] | Query): this;
-        /**
-         * サブクエリの検索結果が指定したサブキーに持つ値のいずれかと、指定したキーが合致するオブジェクトを検索します。
-         *
-         * @method Query#select
-         * @param {string} key メインクエリのクラスで値を比較するキー
-         * @param {string} subkey サブクエリの検索結果で値を比較するキー
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        select(key: string, subkey: string, subqueries: any[] | Query): this;
-        /**
-         * 入力したオブジェクトの指定したキーに関連づけられているオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要があります。
-         *
-         * @method Query#relatedTo
-         * @param object
-         * @param {string} key オブジェクトが関連づけられているキー
-         * @return {this}
-         */
-        relatedTo(object: any, key: string): this;
-        /**
-         * サブクエリの検索結果のいずれかを、指定したキーにポインタで持つオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要がある。
-         *
-         * @method Query#inQuery
-         * @param {string} key ポインタを保存したキー
-         * @param {Query} subquery 検索条件
-         * @return {this}
-         */
-        inQuery(key: string, subquery: Query): this;
-        /**
-         * 指定したキーに設定されているポインタの中身ごと検索結果を取得します。
-         * 複数回実行した場合、最後に設定したキーが反映されます。複数のキーを指定することはできません。
-         *
-         * @method Query#include
-         * @param {string} key ポインタの中身を取得するキー
-         * @return {this}
-         */
-        include(key: string): this;
-        /**
-         * 検索結果の配列と共に、検索結果の件数を取得します。
-         * 検索結果の配列は最大100件までしか取得しませんが、countは検索結果の総件数を表示します。
-         * 検索結果配列にcountプロパティとして付加されます。
-         *
-         * @method Query#count
-         * @return {this}
-         */
-        count(): this;
-        /**
-         * 指定したキーの昇順にソートして検索結果を取得します。
-         * 複数回実行することで、複数のキーを指定できます。その場合、先に指定したキーが優先的にソートされます。
-         * フラグによって降順ソートも可能です。降順フラグはキーごとに設定できます。
-         *
-         * @method Query#order
-         * @param {string} key ソートするキー
-         * @param descending trueを指定した場合、降順でソートされる。省略可能。
-         * @return {this}
-         */
-        order(key: string, descending: any): this;
-        /**
-         * 検索結果の最大取得数を設定します。最小設定値は1、最大設定値は1000です。
-         *
-         * @method Query#limit
-         * @param {number} limit 最大取得件数
-         * @return {this}
-         */
-        limit(limit: number): this;
-        /**
-         * 検索結果の最初から指定した件数だけ除いた結果を取得するようにします。
-         *
-         * @method Query#skip
-         * @param {number} skip 検索結果から除く件数
-         * @return {this}
-         */
-        skip(skip: number): this;
-        /**
-         * objectIdから一意のオブジェクトを取得します。
-         *
-         * @method Query#fetchById
-         * @param {string} id 取得したいオブジェクトのobjectId
-         * @param {function} callback コールバック関数
-         * @return {Promise<any>} オブジェクト
-         */
-        fetchById(id: string, callback: (...params: any[]) => any): Promise<any>;
-        /**
-         * 検索条件に合致するオブジェクトのうち、先頭の一つだけを取得します。
-         *
-         * @method Query#fetch
-         * @param {function} callback コールバック関数
-         * @return {Promise<Object>} 検索結果に合致したオブジェクト
-         */
-        fetch(callback: (...params: any[]) => any): Promise<object>;
-        /**
-         * 検索条件に合致するオブジェクトをすべて取得します。
-         *
-         * @method Query#fetchAll
-         * @param {function} callback コールバック関数
-         * @return {Promise<Array>} 検索結果に合致したオブジェクトの配列
-         */
-        fetchAll(callback: (...params: any[]) => any): Promise<any[]>;
+        new(attrs?: any): NCMB.DataStore;
     }
     /**
     * データストアへの入出力について扱うクラスです。
@@ -396,26 +112,26 @@ declare namespace NCMB {
          * オブジェクトを保存します。
          *
          * @method NCMB.DataStore#save
-         * @param {function} callback コールバック関数
+         * @param {function} callback? コールバック関数
          * @return {Promise<this>}
          */
-        save(callback: (...params: any[]) => any): Promise<this>;
+        save(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * オブジェクトを更新します。
          *
          * @method NCMB.DataStore#update
-         * @param {function} callback コールバック関数
+         * @param {function} callback? コールバック関数
          * @return {Promise<this>}
          */
-        update(callback: (...params: any[]) => any): Promise<this>;
+        update(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * オブジェクトを削除します。
          *
          * @method NCMB.DataStore#delete
-         * @param {function} callback コールバック関数
+         * @param {function} callback? コールバック関数
          * @return {Promise<void>}
          */
-        delete(callback: (...params: any[]) => any): Promise<void>;
+        delete(callback?: (...params: any[]) => any): Promise<void>;
         /**
          * 指定したキー設定されている値を取得します。
          *
@@ -492,39 +208,40 @@ declare namespace NCMB {
          * @method NCMB.File#upload
          * @param {String} fileName 取得するバイナリデータのファイル名
          * @param {} fileData 保存するファイルデータ
-         * @param {NCMB.Acl} acl ファイルに対するアクセス権減
+         * @param {NCMB.Acl|function} [acl] ファイルに対するアクセス権減
+         * @param {function} [callback]
          * @return {Promise<any>} APIレスポンス
          */
-        upload(fileName: string, fileData: any, acl: NCMB.Acl): Promise<any>;
+        upload(fileName: string, fileData: any, acl?: NCMB.Acl | ((...params: any[]) => any), callback?: (...params: any[]) => any): Promise<any>;
         /**
          * 指定したファイルのバイナリデータを取得します。
          *
          * @method NCMB.File#download
          * @param {String} fileName 取得するバイナリデータのファイル名
-         * @param {String} responseType レスポンスバイナリのデータ形式 arraybuffer/blob (ブラウザ/Monaca利用時のみ必要)
-         * @param {Function} callback コールバック関数
+         * @param {String} [responseType] レスポンスバイナリのデータ形式 arraybuffer/blob (ブラウザ/Monaca利用時のみ必要)
+         * @param {Function} [callback] コールバック関数
          * @return {Promise<any>} ファイルのバイナリデータ（付加情報は取得しません）
          */
-        download(fileName: string, responseType: string, callback: (...params: any[]) => any): Promise<any>;
+        download(fileName: string, responseType?: string, callback?: (...params: any[]) => any): Promise<any>;
         /**
          * 指定したファイルのACL情報を更新します。
          *
          * @method NCMB.File#updateACL
          * @param {String} fileName 更新するファイル名
          * @param {NCMB.Acl} acl 更新後のacl情報を設定したncmb.ACLインスタンス
-         * @param {Function} callback コールバック関数
+         * @param {Function} [callback] コールバック関数
          * @return {Promise<any>} APIレスポンス
          */
-        updateACL(fileName: string, acl: NCMB.Acl, callback: (...params: any[]) => any): Promise<any>;
+        updateACL(fileName: string, acl: NCMB.Acl, callback?: (...params: any[]) => any): Promise<any>;
         /**
          * 指定したファイルを削除します。
          *
          * @method NCMB.File#delete
          * @param {String} fileName 削除するファイル名
-         * @param {Function} callback コールバック関数
+         * @param {Function} [callback] コールバック関数
          * @returns {Promise<void>}
          */
-        delete(fileName: string, callback: (...params: any[]) => any): Promise<void>;
+        delete(fileName: string, callback?: (...params: any[]) => any): Promise<void>;
     }
     /**
      * @interface NCMB.GeoPointConstructor
@@ -553,299 +270,16 @@ declare namespace NCMB {
     }
     /**
      * @interface NCMB.InstallationConstructor
-     * @extends Query
+     * @extends Query<Installation>
      */
-    interface InstallationConstructor extends Query {
+    interface InstallationConstructor extends Query<Installation> {
         /**
          * @method
          * @name NCMB.InstallationConstructor#new
+         * @param {Object} [attrs] インスタンス生成時に設定するプロパティ
          * @returns {NCMB.Installation}
          */
-        new(): NCMB.Installation;
-        /**
-         * クエリを自分で記述して設定します。
-         *
-         * @method Query#where
-         * @param {Object} where JSON形式のクエリオブジェクト
-         * @return {this}
-         */
-        where(where: any): this;
-        /**
-         * 指定したキーの値が条件と等しいオブジェクトを検索します。
-         *
-         * @method Query#equalTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        equalTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件と等しくないオブジェクトを検索します。
-         *
-         * @method Query#notEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        notEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より小さいオブジェクトを検索します。
-         *
-         * @method Query#lessThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以下のオブジェクトを検索します。
-         *
-         * @method Query#lessThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より大きいオブジェクトを検索します。
-         *
-         * @method Query#greaterThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以上のオブジェクトを検索します。
-         *
-         * @method Query#greaterThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#in
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        in(key: string, values: any[]): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notIn
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notIn(key: string, values: any[]): this;
-        /**
-         * 指定したキーに値が存在するオブジェクトを検索します。
-         * existにfalseが設定されている場合、指定したキーに値が存在しないオブジェクトを検索します。
-         *
-         * @method Query#exists
-         * @param {string} key 値を比較するキー
-         * @param {boolean} exist falseを設定した場合、値が存在しないオブジェクトを検索する。省略可能。
-         * @return {this}
-         */
-        exists(key: string, exist: boolean): this;
-        /**
-         * 指定したキーの値が指定した正規表現に合致する存在するオブジェクトを検索します。
-         *
-         * @method Query#regularExpressionTo
-         * @param {string} key 値を比較するキー
-         * @param {string} regex 検索する正規表現
-         * @return {this}
-         */
-        regularExpressionTo(key: string, regex: string): this;
-        /**
-         * 指定したキーの配列内の値のいずれかが、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#inArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        inArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のすべての値を含むオブジェクトを検索します。
-         *
-         * @method Query#allInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        allInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#near
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @return {this}
-         */
-        near(key: string, location: NCMB.GeoPoint): this;
-        /**
-         * 検索範囲内(Km)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinKilometers
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(Km)
-         * @return {this}
-         */
-        withinKilometers(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(ml)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinMiles
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(ml)
-         * @return {this}
-         */
-        withinMiles(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(rad)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinRadians
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(rad)
-         * @return {this}
-         */
-        withinRadians(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲を南西と北東の位置情報から矩形で設定し、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinSquare
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} southWestVertex 検索矩形の南西側の頂点
-         * @param {NCMB.GeoPoint} northEastVertex 検索矩形の北東側の頂点
-         * @return {this}
-         */
-        withinSquare(key: string, southWestVertex: NCMB.GeoPoint, northEastVertex: NCMB.GeoPoint): this;
-        /**
-         * 複数の検索条件を設定し、いずれかに合致するオブジェクトを検索します。
-         * 配列で複数の条件を一度に設定でき、複数回実行することで検索条件を追加できます。
-         *
-         * @method Query#or
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        or(subqueries: any[] | Query): this;
-        /**
-         * サブクエリの検索結果が指定したサブキーに持つ値のいずれかと、指定したキーが合致するオブジェクトを検索します。
-         *
-         * @method Query#select
-         * @param {string} key メインクエリのクラスで値を比較するキー
-         * @param {string} subkey サブクエリの検索結果で値を比較するキー
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        select(key: string, subkey: string, subqueries: any[] | Query): this;
-        /**
-         * 入力したオブジェクトの指定したキーに関連づけられているオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要があります。
-         *
-         * @method Query#relatedTo
-         * @param object
-         * @param {string} key オブジェクトが関連づけられているキー
-         * @return {this}
-         */
-        relatedTo(object: any, key: string): this;
-        /**
-         * サブクエリの検索結果のいずれかを、指定したキーにポインタで持つオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要がある。
-         *
-         * @method Query#inQuery
-         * @param {string} key ポインタを保存したキー
-         * @param {Query} subquery 検索条件
-         * @return {this}
-         */
-        inQuery(key: string, subquery: Query): this;
-        /**
-         * 指定したキーに設定されているポインタの中身ごと検索結果を取得します。
-         * 複数回実行した場合、最後に設定したキーが反映されます。複数のキーを指定することはできません。
-         *
-         * @method Query#include
-         * @param {string} key ポインタの中身を取得するキー
-         * @return {this}
-         */
-        include(key: string): this;
-        /**
-         * 検索結果の配列と共に、検索結果の件数を取得します。
-         * 検索結果の配列は最大100件までしか取得しませんが、countは検索結果の総件数を表示します。
-         * 検索結果配列にcountプロパティとして付加されます。
-         *
-         * @method Query#count
-         * @return {this}
-         */
-        count(): this;
-        /**
-         * 指定したキーの昇順にソートして検索結果を取得します。
-         * 複数回実行することで、複数のキーを指定できます。その場合、先に指定したキーが優先的にソートされます。
-         * フラグによって降順ソートも可能です。降順フラグはキーごとに設定できます。
-         *
-         * @method Query#order
-         * @param {string} key ソートするキー
-         * @param descending trueを指定した場合、降順でソートされる。省略可能。
-         * @return {this}
-         */
-        order(key: string, descending: any): this;
-        /**
-         * 検索結果の最大取得数を設定します。最小設定値は1、最大設定値は1000です。
-         *
-         * @method Query#limit
-         * @param {number} limit 最大取得件数
-         * @return {this}
-         */
-        limit(limit: number): this;
-        /**
-         * 検索結果の最初から指定した件数だけ除いた結果を取得するようにします。
-         *
-         * @method Query#skip
-         * @param {number} skip 検索結果から除く件数
-         * @return {this}
-         */
-        skip(skip: number): this;
-        /**
-         * objectIdから一意のオブジェクトを取得します。
-         *
-         * @method Query#fetchById
-         * @param {string} id 取得したいオブジェクトのobjectId
-         * @param {function} callback コールバック関数
-         * @return {Promise<any>} オブジェクト
-         */
-        fetchById(id: string, callback: (...params: any[]) => any): Promise<any>;
-        /**
-         * 検索条件に合致するオブジェクトのうち、先頭の一つだけを取得します。
-         *
-         * @method Query#fetch
-         * @param {function} callback コールバック関数
-         * @return {Promise<Object>} 検索結果に合致したオブジェクト
-         */
-        fetch(callback: (...params: any[]) => any): Promise<object>;
-        /**
-         * 検索条件に合致するオブジェクトをすべて取得します。
-         *
-         * @method Query#fetchAll
-         * @param {function} callback コールバック関数
-         * @return {Promise<Array>} 検索結果に合致したオブジェクトの配列
-         */
-        fetchAll(callback: (...params: any[]) => any): Promise<any[]>;
+        new(attrs?: any): NCMB.Installation;
     }
     /**
     * プッシュ配信端末の操作を扱うクラスです。
@@ -860,18 +294,18 @@ declare namespace NCMB {
          * 配信端末情報を削除します。
          *
          * @method NCMB.Installation#delete
-         * @param {function} callback コールバック関数
-         * @return true
+         * @param {function} [callback] コールバック関数
+         * @return {Promise<true>}
          */
-        delete(callback: (...params: any[]) => any): any;
+        delete(callback?: (...params: any[]) => any): Promise<true>;
         /**
          * 配信端末情報を更新します。
          *
          * @method NCMB.Installation#update
-         * @param {function} callback コールバック関数
-         * @return this
+         * @param {function} [callback] コールバック関数
+         * @return {Promise<this>}
          */
-        update(callback: (...params: any[]) => any): any;
+        update(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * 指定したキー設定されている値を取得します。
          *
@@ -934,299 +368,16 @@ declare namespace NCMB {
     }
     /**
      * @interface NCMB.PushConstructor
-     * @extends Query
+     * @extends Query<Push>
      */
-    interface PushConstructor extends Query {
+    interface PushConstructor extends Query<Push> {
         /**
          * @method
          * @name NCMB.PushConstructor#new
+         * @param {Object} [attrs] インスタンス生成時に設定するプロパティ
          * @returns {NCMB.Push}
          */
-        new(): NCMB.Push;
-        /**
-         * クエリを自分で記述して設定します。
-         *
-         * @method Query#where
-         * @param {Object} where JSON形式のクエリオブジェクト
-         * @return {this}
-         */
-        where(where: any): this;
-        /**
-         * 指定したキーの値が条件と等しいオブジェクトを検索します。
-         *
-         * @method Query#equalTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        equalTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件と等しくないオブジェクトを検索します。
-         *
-         * @method Query#notEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        notEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より小さいオブジェクトを検索します。
-         *
-         * @method Query#lessThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以下のオブジェクトを検索します。
-         *
-         * @method Query#lessThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より大きいオブジェクトを検索します。
-         *
-         * @method Query#greaterThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以上のオブジェクトを検索します。
-         *
-         * @method Query#greaterThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#in
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        in(key: string, values: any[]): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notIn
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notIn(key: string, values: any[]): this;
-        /**
-         * 指定したキーに値が存在するオブジェクトを検索します。
-         * existにfalseが設定されている場合、指定したキーに値が存在しないオブジェクトを検索します。
-         *
-         * @method Query#exists
-         * @param {string} key 値を比較するキー
-         * @param {boolean} exist falseを設定した場合、値が存在しないオブジェクトを検索する。省略可能。
-         * @return {this}
-         */
-        exists(key: string, exist: boolean): this;
-        /**
-         * 指定したキーの値が指定した正規表現に合致する存在するオブジェクトを検索します。
-         *
-         * @method Query#regularExpressionTo
-         * @param {string} key 値を比較するキー
-         * @param {string} regex 検索する正規表現
-         * @return {this}
-         */
-        regularExpressionTo(key: string, regex: string): this;
-        /**
-         * 指定したキーの配列内の値のいずれかが、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#inArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        inArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のすべての値を含むオブジェクトを検索します。
-         *
-         * @method Query#allInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        allInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#near
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @return {this}
-         */
-        near(key: string, location: NCMB.GeoPoint): this;
-        /**
-         * 検索範囲内(Km)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinKilometers
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(Km)
-         * @return {this}
-         */
-        withinKilometers(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(ml)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinMiles
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(ml)
-         * @return {this}
-         */
-        withinMiles(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(rad)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinRadians
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(rad)
-         * @return {this}
-         */
-        withinRadians(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲を南西と北東の位置情報から矩形で設定し、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinSquare
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} southWestVertex 検索矩形の南西側の頂点
-         * @param {NCMB.GeoPoint} northEastVertex 検索矩形の北東側の頂点
-         * @return {this}
-         */
-        withinSquare(key: string, southWestVertex: NCMB.GeoPoint, northEastVertex: NCMB.GeoPoint): this;
-        /**
-         * 複数の検索条件を設定し、いずれかに合致するオブジェクトを検索します。
-         * 配列で複数の条件を一度に設定でき、複数回実行することで検索条件を追加できます。
-         *
-         * @method Query#or
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        or(subqueries: any[] | Query): this;
-        /**
-         * サブクエリの検索結果が指定したサブキーに持つ値のいずれかと、指定したキーが合致するオブジェクトを検索します。
-         *
-         * @method Query#select
-         * @param {string} key メインクエリのクラスで値を比較するキー
-         * @param {string} subkey サブクエリの検索結果で値を比較するキー
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        select(key: string, subkey: string, subqueries: any[] | Query): this;
-        /**
-         * 入力したオブジェクトの指定したキーに関連づけられているオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要があります。
-         *
-         * @method Query#relatedTo
-         * @param object
-         * @param {string} key オブジェクトが関連づけられているキー
-         * @return {this}
-         */
-        relatedTo(object: any, key: string): this;
-        /**
-         * サブクエリの検索結果のいずれかを、指定したキーにポインタで持つオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要がある。
-         *
-         * @method Query#inQuery
-         * @param {string} key ポインタを保存したキー
-         * @param {Query} subquery 検索条件
-         * @return {this}
-         */
-        inQuery(key: string, subquery: Query): this;
-        /**
-         * 指定したキーに設定されているポインタの中身ごと検索結果を取得します。
-         * 複数回実行した場合、最後に設定したキーが反映されます。複数のキーを指定することはできません。
-         *
-         * @method Query#include
-         * @param {string} key ポインタの中身を取得するキー
-         * @return {this}
-         */
-        include(key: string): this;
-        /**
-         * 検索結果の配列と共に、検索結果の件数を取得します。
-         * 検索結果の配列は最大100件までしか取得しませんが、countは検索結果の総件数を表示します。
-         * 検索結果配列にcountプロパティとして付加されます。
-         *
-         * @method Query#count
-         * @return {this}
-         */
-        count(): this;
-        /**
-         * 指定したキーの昇順にソートして検索結果を取得します。
-         * 複数回実行することで、複数のキーを指定できます。その場合、先に指定したキーが優先的にソートされます。
-         * フラグによって降順ソートも可能です。降順フラグはキーごとに設定できます。
-         *
-         * @method Query#order
-         * @param {string} key ソートするキー
-         * @param descending trueを指定した場合、降順でソートされる。省略可能。
-         * @return {this}
-         */
-        order(key: string, descending: any): this;
-        /**
-         * 検索結果の最大取得数を設定します。最小設定値は1、最大設定値は1000です。
-         *
-         * @method Query#limit
-         * @param {number} limit 最大取得件数
-         * @return {this}
-         */
-        limit(limit: number): this;
-        /**
-         * 検索結果の最初から指定した件数だけ除いた結果を取得するようにします。
-         *
-         * @method Query#skip
-         * @param {number} skip 検索結果から除く件数
-         * @return {this}
-         */
-        skip(skip: number): this;
-        /**
-         * objectIdから一意のオブジェクトを取得します。
-         *
-         * @method Query#fetchById
-         * @param {string} id 取得したいオブジェクトのobjectId
-         * @param {function} callback コールバック関数
-         * @return {Promise<any>} オブジェクト
-         */
-        fetchById(id: string, callback: (...params: any[]) => any): Promise<any>;
-        /**
-         * 検索条件に合致するオブジェクトのうち、先頭の一つだけを取得します。
-         *
-         * @method Query#fetch
-         * @param {function} callback コールバック関数
-         * @return {Promise<Object>} 検索結果に合致したオブジェクト
-         */
-        fetch(callback: (...params: any[]) => any): Promise<object>;
-        /**
-         * 検索条件に合致するオブジェクトをすべて取得します。
-         *
-         * @method Query#fetchAll
-         * @param {function} callback コールバック関数
-         * @return {Promise<Array>} 検索結果に合致したオブジェクトの配列
-         */
-        fetchAll(callback: (...params: any[]) => any): Promise<any[]>;
+        new(attrs?: any): NCMB.Push;
     }
     /**
     * プッシュ通知の操作を扱うクラスです。
@@ -1241,26 +392,26 @@ declare namespace NCMB {
          * 即時配信フラグがtrueの場合はすぐに配信されます。
          *
          * @method NCMB.Push#send
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        send(callback: (...params: any[]) => any): Promise<this>;
+        send(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * 未送信のプッシュ通知を削除します。
          *
          * @method NCMB.Push#delete
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<any>}
          */
-        delete(callback: (...params: any[]) => any): Promise<any>;
+        delete(callback?: (...params: any[]) => any): Promise<any>;
         /**
          * 未送信のプッシュ通知の内容を更新します。
          *
          * @method NCMB.Push#update
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        update(callback: (...params: any[]) => any): Promise<this>;
+        update(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * 指定したキーに値を設定します。
          * 設定可能なキーはREST APIリファレンスを参照してください。
@@ -1274,300 +425,16 @@ declare namespace NCMB {
     }
     /**
      * @interface NCMB.RelationConstructor
-     * @extends Query
+     * @extends Query<Relation>
      */
-    interface RelationConstructor extends Query {
+    interface RelationConstructor extends Query<Relation> {
         /**
          * @method
          * @name NCMB.RelationConstructor#new
-         * @param {string} relatingClass 関連づけるクラス名。省略可能
+         * @param {string} [relatingClass] 関連づけるクラス名。省略可能
          * @returns {NCMB.Relation}
          */
-        new(relatingClass: string): NCMB.Relation;
-        /**
-         * クエリを自分で記述して設定します。
-         *
-         * @method Query#where
-         * @param {Object} where JSON形式のクエリオブジェクト
-         * @return {this}
-         */
-        where(where: any): this;
-        /**
-         * 指定したキーの値が条件と等しいオブジェクトを検索します。
-         *
-         * @method Query#equalTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        equalTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件と等しくないオブジェクトを検索します。
-         *
-         * @method Query#notEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        notEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より小さいオブジェクトを検索します。
-         *
-         * @method Query#lessThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以下のオブジェクトを検索します。
-         *
-         * @method Query#lessThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より大きいオブジェクトを検索します。
-         *
-         * @method Query#greaterThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以上のオブジェクトを検索します。
-         *
-         * @method Query#greaterThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#in
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        in(key: string, values: any[]): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notIn
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notIn(key: string, values: any[]): this;
-        /**
-         * 指定したキーに値が存在するオブジェクトを検索します。
-         * existにfalseが設定されている場合、指定したキーに値が存在しないオブジェクトを検索します。
-         *
-         * @method Query#exists
-         * @param {string} key 値を比較するキー
-         * @param {boolean} exist falseを設定した場合、値が存在しないオブジェクトを検索する。省略可能。
-         * @return {this}
-         */
-        exists(key: string, exist: boolean): this;
-        /**
-         * 指定したキーの値が指定した正規表現に合致する存在するオブジェクトを検索します。
-         *
-         * @method Query#regularExpressionTo
-         * @param {string} key 値を比較するキー
-         * @param {string} regex 検索する正規表現
-         * @return {this}
-         */
-        regularExpressionTo(key: string, regex: string): this;
-        /**
-         * 指定したキーの配列内の値のいずれかが、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#inArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        inArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のすべての値を含むオブジェクトを検索します。
-         *
-         * @method Query#allInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        allInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#near
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @return {this}
-         */
-        near(key: string, location: NCMB.GeoPoint): this;
-        /**
-         * 検索範囲内(Km)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinKilometers
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(Km)
-         * @return {this}
-         */
-        withinKilometers(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(ml)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinMiles
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(ml)
-         * @return {this}
-         */
-        withinMiles(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(rad)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinRadians
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(rad)
-         * @return {this}
-         */
-        withinRadians(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲を南西と北東の位置情報から矩形で設定し、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinSquare
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} southWestVertex 検索矩形の南西側の頂点
-         * @param {NCMB.GeoPoint} northEastVertex 検索矩形の北東側の頂点
-         * @return {this}
-         */
-        withinSquare(key: string, southWestVertex: NCMB.GeoPoint, northEastVertex: NCMB.GeoPoint): this;
-        /**
-         * 複数の検索条件を設定し、いずれかに合致するオブジェクトを検索します。
-         * 配列で複数の条件を一度に設定でき、複数回実行することで検索条件を追加できます。
-         *
-         * @method Query#or
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        or(subqueries: any[] | Query): this;
-        /**
-         * サブクエリの検索結果が指定したサブキーに持つ値のいずれかと、指定したキーが合致するオブジェクトを検索します。
-         *
-         * @method Query#select
-         * @param {string} key メインクエリのクラスで値を比較するキー
-         * @param {string} subkey サブクエリの検索結果で値を比較するキー
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        select(key: string, subkey: string, subqueries: any[] | Query): this;
-        /**
-         * 入力したオブジェクトの指定したキーに関連づけられているオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要があります。
-         *
-         * @method Query#relatedTo
-         * @param object
-         * @param {string} key オブジェクトが関連づけられているキー
-         * @return {this}
-         */
-        relatedTo(object: any, key: string): this;
-        /**
-         * サブクエリの検索結果のいずれかを、指定したキーにポインタで持つオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要がある。
-         *
-         * @method Query#inQuery
-         * @param {string} key ポインタを保存したキー
-         * @param {Query} subquery 検索条件
-         * @return {this}
-         */
-        inQuery(key: string, subquery: Query): this;
-        /**
-         * 指定したキーに設定されているポインタの中身ごと検索結果を取得します。
-         * 複数回実行した場合、最後に設定したキーが反映されます。複数のキーを指定することはできません。
-         *
-         * @method Query#include
-         * @param {string} key ポインタの中身を取得するキー
-         * @return {this}
-         */
-        include(key: string): this;
-        /**
-         * 検索結果の配列と共に、検索結果の件数を取得します。
-         * 検索結果の配列は最大100件までしか取得しませんが、countは検索結果の総件数を表示します。
-         * 検索結果配列にcountプロパティとして付加されます。
-         *
-         * @method Query#count
-         * @return {this}
-         */
-        count(): this;
-        /**
-         * 指定したキーの昇順にソートして検索結果を取得します。
-         * 複数回実行することで、複数のキーを指定できます。その場合、先に指定したキーが優先的にソートされます。
-         * フラグによって降順ソートも可能です。降順フラグはキーごとに設定できます。
-         *
-         * @method Query#order
-         * @param {string} key ソートするキー
-         * @param descending trueを指定した場合、降順でソートされる。省略可能。
-         * @return {this}
-         */
-        order(key: string, descending: any): this;
-        /**
-         * 検索結果の最大取得数を設定します。最小設定値は1、最大設定値は1000です。
-         *
-         * @method Query#limit
-         * @param {number} limit 最大取得件数
-         * @return {this}
-         */
-        limit(limit: number): this;
-        /**
-         * 検索結果の最初から指定した件数だけ除いた結果を取得するようにします。
-         *
-         * @method Query#skip
-         * @param {number} skip 検索結果から除く件数
-         * @return {this}
-         */
-        skip(skip: number): this;
-        /**
-         * objectIdから一意のオブジェクトを取得します。
-         *
-         * @method Query#fetchById
-         * @param {string} id 取得したいオブジェクトのobjectId
-         * @param {function} callback コールバック関数
-         * @return {Promise<any>} オブジェクト
-         */
-        fetchById(id: string, callback: (...params: any[]) => any): Promise<any>;
-        /**
-         * 検索条件に合致するオブジェクトのうち、先頭の一つだけを取得します。
-         *
-         * @method Query#fetch
-         * @param {function} callback コールバック関数
-         * @return {Promise<Object>} 検索結果に合致したオブジェクト
-         */
-        fetch(callback: (...params: any[]) => any): Promise<object>;
-        /**
-         * 検索条件に合致するオブジェクトをすべて取得します。
-         *
-         * @method Query#fetchAll
-         * @param {function} callback コールバック関数
-         * @return {Promise<Array>} 検索結果に合致したオブジェクトの配列
-         */
-        fetchAll(callback: (...params: any[]) => any): Promise<any[]>;
+        new(relatingClass?: string): NCMB.Relation;
     }
     /**
     * リレーションについて扱うクラスです。
@@ -1588,315 +455,31 @@ declare namespace NCMB {
          *
          * @method NCMB.Relation#add
          * @param object 追加するオブジェクト
-         * @return this
+         * @return {this}
          */
-        add(object: any): any;
+        add(object: any): this;
         /**
          * 関連オブジェクトから削除するオブジェクトを設定します。
          *
          * @method NCMB.Relation#remove
          * @param object 削除するオブジェクト
-         * @return this
+         * @return {this}
          */
-        remove(object: any): any;
+        remove(object: any): this;
     }
     /**
      * @interface NCMB.RoleConstructor
-     * @extends Query
+     * @extends Query<Role>
      */
-    interface RoleConstructor extends Query {
+    interface RoleConstructor extends Query<Role> {
         /**
          * @method
          * @name NCMB.RoleConstructor#new
          * @param {string} roleName ロール名。インスタンス生成時に必須
-         * @param {Object} attrs インスタンス生成時に設定するプロパティ
+         * @param {Object} [attrs] インスタンス生成時に設定するプロパティ
          * @returns {NCMB.Role}
          */
-        new(roleName: string, attrs: any): NCMB.Role;
-        /**
-         * クエリを自分で記述して設定します。
-         *
-         * @method Query#where
-         * @param {Object} where JSON形式のクエリオブジェクト
-         * @return {this}
-         */
-        where(where: any): this;
-        /**
-         * 指定したキーの値が条件と等しいオブジェクトを検索します。
-         *
-         * @method Query#equalTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        equalTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件と等しくないオブジェクトを検索します。
-         *
-         * @method Query#notEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        notEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より小さいオブジェクトを検索します。
-         *
-         * @method Query#lessThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以下のオブジェクトを検索します。
-         *
-         * @method Query#lessThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より大きいオブジェクトを検索します。
-         *
-         * @method Query#greaterThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以上のオブジェクトを検索します。
-         *
-         * @method Query#greaterThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#in
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        in(key: string, values: any[]): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notIn
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notIn(key: string, values: any[]): this;
-        /**
-         * 指定したキーに値が存在するオブジェクトを検索します。
-         * existにfalseが設定されている場合、指定したキーに値が存在しないオブジェクトを検索します。
-         *
-         * @method Query#exists
-         * @param {string} key 値を比較するキー
-         * @param {boolean} exist falseを設定した場合、値が存在しないオブジェクトを検索する。省略可能。
-         * @return {this}
-         */
-        exists(key: string, exist: boolean): this;
-        /**
-         * 指定したキーの値が指定した正規表現に合致する存在するオブジェクトを検索します。
-         *
-         * @method Query#regularExpressionTo
-         * @param {string} key 値を比較するキー
-         * @param {string} regex 検索する正規表現
-         * @return {this}
-         */
-        regularExpressionTo(key: string, regex: string): this;
-        /**
-         * 指定したキーの配列内の値のいずれかが、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#inArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        inArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のすべての値を含むオブジェクトを検索します。
-         *
-         * @method Query#allInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        allInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#near
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @return {this}
-         */
-        near(key: string, location: NCMB.GeoPoint): this;
-        /**
-         * 検索範囲内(Km)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinKilometers
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(Km)
-         * @return {this}
-         */
-        withinKilometers(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(ml)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinMiles
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(ml)
-         * @return {this}
-         */
-        withinMiles(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(rad)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinRadians
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(rad)
-         * @return {this}
-         */
-        withinRadians(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲を南西と北東の位置情報から矩形で設定し、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinSquare
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} southWestVertex 検索矩形の南西側の頂点
-         * @param {NCMB.GeoPoint} northEastVertex 検索矩形の北東側の頂点
-         * @return {this}
-         */
-        withinSquare(key: string, southWestVertex: NCMB.GeoPoint, northEastVertex: NCMB.GeoPoint): this;
-        /**
-         * 複数の検索条件を設定し、いずれかに合致するオブジェクトを検索します。
-         * 配列で複数の条件を一度に設定でき、複数回実行することで検索条件を追加できます。
-         *
-         * @method Query#or
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        or(subqueries: any[] | Query): this;
-        /**
-         * サブクエリの検索結果が指定したサブキーに持つ値のいずれかと、指定したキーが合致するオブジェクトを検索します。
-         *
-         * @method Query#select
-         * @param {string} key メインクエリのクラスで値を比較するキー
-         * @param {string} subkey サブクエリの検索結果で値を比較するキー
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        select(key: string, subkey: string, subqueries: any[] | Query): this;
-        /**
-         * 入力したオブジェクトの指定したキーに関連づけられているオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要があります。
-         *
-         * @method Query#relatedTo
-         * @param object
-         * @param {string} key オブジェクトが関連づけられているキー
-         * @return {this}
-         */
-        relatedTo(object: any, key: string): this;
-        /**
-         * サブクエリの検索結果のいずれかを、指定したキーにポインタで持つオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要がある。
-         *
-         * @method Query#inQuery
-         * @param {string} key ポインタを保存したキー
-         * @param {Query} subquery 検索条件
-         * @return {this}
-         */
-        inQuery(key: string, subquery: Query): this;
-        /**
-         * 指定したキーに設定されているポインタの中身ごと検索結果を取得します。
-         * 複数回実行した場合、最後に設定したキーが反映されます。複数のキーを指定することはできません。
-         *
-         * @method Query#include
-         * @param {string} key ポインタの中身を取得するキー
-         * @return {this}
-         */
-        include(key: string): this;
-        /**
-         * 検索結果の配列と共に、検索結果の件数を取得します。
-         * 検索結果の配列は最大100件までしか取得しませんが、countは検索結果の総件数を表示します。
-         * 検索結果配列にcountプロパティとして付加されます。
-         *
-         * @method Query#count
-         * @return {this}
-         */
-        count(): this;
-        /**
-         * 指定したキーの昇順にソートして検索結果を取得します。
-         * 複数回実行することで、複数のキーを指定できます。その場合、先に指定したキーが優先的にソートされます。
-         * フラグによって降順ソートも可能です。降順フラグはキーごとに設定できます。
-         *
-         * @method Query#order
-         * @param {string} key ソートするキー
-         * @param descending trueを指定した場合、降順でソートされる。省略可能。
-         * @return {this}
-         */
-        order(key: string, descending: any): this;
-        /**
-         * 検索結果の最大取得数を設定します。最小設定値は1、最大設定値は1000です。
-         *
-         * @method Query#limit
-         * @param {number} limit 最大取得件数
-         * @return {this}
-         */
-        limit(limit: number): this;
-        /**
-         * 検索結果の最初から指定した件数だけ除いた結果を取得するようにします。
-         *
-         * @method Query#skip
-         * @param {number} skip 検索結果から除く件数
-         * @return {this}
-         */
-        skip(skip: number): this;
-        /**
-         * objectIdから一意のオブジェクトを取得します。
-         *
-         * @method Query#fetchById
-         * @param {string} id 取得したいオブジェクトのobjectId
-         * @param {function} callback コールバック関数
-         * @return {Promise<any>} オブジェクト
-         */
-        fetchById(id: string, callback: (...params: any[]) => any): Promise<any>;
-        /**
-         * 検索条件に合致するオブジェクトのうち、先頭の一つだけを取得します。
-         *
-         * @method Query#fetch
-         * @param {function} callback コールバック関数
-         * @return {Promise<Object>} 検索結果に合致したオブジェクト
-         */
-        fetch(callback: (...params: any[]) => any): Promise<object>;
-        /**
-         * 検索条件に合致するオブジェクトをすべて取得します。
-         *
-         * @method Query#fetchAll
-         * @param {function} callback コールバック関数
-         * @return {Promise<Array>} 検索結果に合致したオブジェクトの配列
-         */
-        fetchAll(callback: (...params: any[]) => any): Promise<any[]>;
+        new(roleName: string, attrs?: any): NCMB.Role;
     }
     /**
     * ロールについて扱うクラスです。
@@ -1918,42 +501,42 @@ declare namespace NCMB {
          * ロールを保存します。
          *
          * @method NCMB.Role#save
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        save(callback: (...params: any[]) => any): Promise<this>;
+        save(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * ロールを更新します。
          *
          * @method NCMB.Role#update
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        update(callback: (...params: any[]) => any): Promise<this>;
+        update(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * ロールを削除します。
          *
          * @method NCMB.Role#delete
-         * @param {function} callback コールバック関数
-         * @return true
+         * @param {function} [callback] コールバック関数
+         * @return {Promise<true>}
          */
-        delete(callback: (...params: any[]) => any): any;
+        delete(callback?: (...params: any[]) => any): Promise<true>;
         /**
          * ロールにユーザを追加します。
          *
          * @method NCMB.Role#addUser
-         * @param {User} object 追加するユーザ
+         * @param {User|Array<User>} object 追加するユーザ
          * @return {this}
          */
-        addUser(object: User): this;
+        addUser(object: User | User[]): this;
         /**
          * ロールに子ロールを追加します。
          *
          * @method NCMB.Role#addRole
-         * @param {Role} object 追加する子ロール
+         * @param {Role|Array<Role>} object 追加する子ロール
          * @return {this}
          */
-        addRole(object: Role): this;
+        addRole(object: Role | Role[]): this;
         /**
          * ロールからユーザを削除します。
          *
@@ -1974,18 +557,18 @@ declare namespace NCMB {
          * ロールに登録されているユーザの一覧を取得します。
          *
          * @method NCMB.Role#fetchUser
-         * @param {function} callback コールバック関数
-         * @return {Array} ユーザインスタンスの配列
+         * @param {function} [callback] コールバック関数
+         * @return {Promise<Array<User>>} ユーザインスタンスの配列
          */
-        fetchUser(callback: (...params: any[]) => any): any[];
+        fetchUser(callback?: (...params: any[]) => any): Promise<User[]>;
         /**
          * ロールに登録されている子ロールの一覧を取得します。
          *
          * @method NCMB.Role#fetchRole
-         * @param {function} callback コールバック関数
-         * @return {Array} 子ロールインスタンスの配列
+         * @param {function} [callback] コールバック関数
+         * @return {Promise<Array<Role>>} 子ロールインスタンスの配列
          */
-        fetchRole(callback: (...params: any[]) => any): any[];
+        fetchRole(callback?: (...params: any[]) => any): Promise<Role[]>;
         /**
          * 指定したキー設定されている値を取得します。
          *
@@ -2104,15 +687,16 @@ declare namespace NCMB {
     }
     /**
      * @interface NCMB.UserConstructor
-     * @extends Query
+     * @extends Query<User>
      */
-    interface UserConstructor extends Query {
+    interface UserConstructor extends Query<User> {
         /**
          * @method
          * @name NCMB.UserConstructor#new
+         * @param {Object} [attrs] インスタンス生成時に設定するプロパティ
          * @returns {NCMB.User}
          */
-        new(): NCMB.User;
+        new(attrs?: any): NCMB.User;
         /**
          * 現在セッションに使用しているユーザの情報を取得します。
          * セッションにセッショントークンを利用していない場合、nullが返ります。
@@ -2130,10 +714,10 @@ declare namespace NCMB {
          *
          * @method NCMB.UserConstructor#requestSignUpEmail
          * @param {string} mailAddress 登録するメールアドレス
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<any>} APIレスポンス
          */
-        requestSignUpEmail(mailAddress: string, callback: (...params: any[]) => any): Promise<any>;
+        requestSignUpEmail(mailAddress: string, callback?: (...params: any[]) => any): Promise<any>;
         /**
          * ログイン（セッショントークンの取得）およびカレントユーザへの設定を行います。
          * userNameおよびpasswordプロパティをもつUserインスタンスを第一引数に設定しそのユーザでログイン可能です。
@@ -2142,12 +726,12 @@ declare namespace NCMB {
          * セッショントークンの期限切れが発生している場合、一度ログアウトしてから再度ログインしてください。
          *
          * @method NCMB.UserConstructor#login
-         * @param {string} userName ユーザ名
-         * @param {string} password パスワード
-         * @param {function} callback コールバック関数
+         * @param {string | NCMB.User} userName ユーザ名
+         * @param {string | function} [password] パスワード
+         * @param {function} [callback] コールバック関数
          * @return {Promise<User>} ログインしたUserインスタンス
          */
-        login(userName: string, password: string, callback: (...params: any[]) => any): Promise<User>;
+        login(userName: string | NCMB.User, password?: string | ((...params: any[]) => any), callback?: (...params: any[]) => any): Promise<User>;
         /**
          * ログイン（セッショントークンの取得）およびカレントユーザへの設定を行います。
          * mailAddressおよびpasswordプロパティをもつUserインスタンスを第一引数に設定し、そのユーザでログイン可能です。
@@ -2156,12 +740,12 @@ declare namespace NCMB {
          * セッショントークンの期限切れが発生している場合、一度ログアウトしてから再度ログインしてください。
          *
          * @method NCMB.UserConstructor#loginWithMailAddress
-         * @param {string} mailAddress メールアドレス
-         * @param {string} password パスワード
-         * @param {function} callback コールバック関数
+         * @param {string|NCMB.User} mailAddress メールアドレス
+         * @param {string|function} [password] パスワード
+         * @param {function} [callback] コールバック関数
          * @return {Promise<User>} ログインしたUserインスタンス
          */
-        loginWithMailAddress(mailAddress: string, password: string, callback: (...params: any[]) => any): Promise<User>;
+        loginWithMailAddress(mailAddress: string | NCMB.User, password?: string | ((...params: any[]) => any), callback?: (...params: any[]) => any): Promise<User>;
         /**
          * 匿名ユーザとしてログイン（セッショントークンの取得）を行います。
          * すでにセッショントークンを保持している場合、更新処理は行いません。
@@ -2171,10 +755,10 @@ declare namespace NCMB {
          *
          * @method NCMB.UserConstructor#loginAsAnonymous
          * @param {string} uuid 端末固有のUUID
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<User>} ログインしたUserインスタンス
          */
-        loginAsAnonymous(uuid: string, callback: (...params: any[]) => any): Promise<User>;
+        loginAsAnonymous(uuid: string, callback?: (...params: any[]) => any): Promise<User>;
         /**
          * SNS連携認証ユーザとしてログイン（セッショントークンの取得）およびカレントユーザへの設定を行います。
          * authDataプロパティをもつUserインスタンスを第一引数に設定し、そのユーザでログイン可能です。
@@ -2184,306 +768,22 @@ declare namespace NCMB {
          * セッショントークンの期限切れが発生している場合、一度ログアウトしてから再度ログインしてください。
          *
          * @method NCMB.UserConstructor#loginWith
-         * @param {string} provider 連携するサービスプロバイダ名 facebook/twitter/google
-         * @param {Object} data 認証に必要な情報を保持したJSON形式のオブジェクト
-         * @param {function} callback コールバック関数
+         * @param {string|NCMB.User} provider 連携するサービスプロバイダ名 facebook/twitter/google
+         * @param {Object|function} [data] 認証に必要な情報を保持したJSON形式のオブジェクト
+         * @param {function} [callback] コールバック関数
          * @return {Promise<User>} ログインしたUserインスタンス
          */
-        loginWith(provider: string, data: any, callback: (...params: any[]) => any): Promise<User>;
+        loginWith(provider: string | NCMB.User, data?: any | ((...params: any[]) => any), callback?: (...params: any[]) => any): Promise<User>;
         /**
          * カレントユーザ情報およびセッショントークンの破棄を行います。
          * カレントユーザに設定されていたインスタンス自体のセッショントークン情報は保持され続けます。
          * 別途プロトタイプメソッドでインスタンスのログアウトを実行してください。
          *
          * @method NCMB.UserConstructor#logout
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<User>} ログアウトしたユーザインスタンス
          */
-        logout(callback: (...params: any[]) => any): Promise<User>;
-        /**
-         * クエリを自分で記述して設定します。
-         *
-         * @method Query#where
-         * @param {Object} where JSON形式のクエリオブジェクト
-         * @return {this}
-         */
-        where(where: any): this;
-        /**
-         * 指定したキーの値が条件と等しいオブジェクトを検索します。
-         *
-         * @method Query#equalTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        equalTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件と等しくないオブジェクトを検索します。
-         *
-         * @method Query#notEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        notEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より小さいオブジェクトを検索します。
-         *
-         * @method Query#lessThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以下のオブジェクトを検索します。
-         *
-         * @method Query#lessThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        lessThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件より大きいオブジェクトを検索します。
-         *
-         * @method Query#greaterThan
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThan(key: string, value: any): this;
-        /**
-         * 指定したキーの値が条件以上のオブジェクトを検索します。
-         *
-         * @method Query#greaterThanOrEqualTo
-         * @param {string} key 値を比較するキー
-         * @param value 比較する値
-         * @return {this}
-         */
-        greaterThanOrEqualTo(key: string, value: any): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#in
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        in(key: string, values: any[]): this;
-        /**
-         * 指定したキーの値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notIn
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notIn(key: string, values: any[]): this;
-        /**
-         * 指定したキーに値が存在するオブジェクトを検索します。
-         * existにfalseが設定されている場合、指定したキーに値が存在しないオブジェクトを検索します。
-         *
-         * @method Query#exists
-         * @param {string} key 値を比較するキー
-         * @param {boolean} exist falseを設定した場合、値が存在しないオブジェクトを検索する。省略可能。
-         * @return {this}
-         */
-        exists(key: string, exist: boolean): this;
-        /**
-         * 指定したキーの値が指定した正規表現に合致する存在するオブジェクトを検索します。
-         *
-         * @method Query#regularExpressionTo
-         * @param {string} key 値を比較するキー
-         * @param {string} regex 検索する正規表現
-         * @return {this}
-         */
-        regularExpressionTo(key: string, regex: string): this;
-        /**
-         * 指定したキーの配列内の値のいずれかが、条件の配列内のいずれかと等しいオブジェクトを検索します。
-         *
-         * @method Query#inArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        inArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
-         *
-         * @method Query#notInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        notInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの配列内の値が、条件の配列内のすべての値を含むオブジェクトを検索します。
-         *
-         * @method Query#allInArray
-         * @param {string} key 値を比較するキー
-         * @param {Array} values 比較する値
-         * @return {this}
-         */
-        allInArray(key: string, values: any[]): this;
-        /**
-         * 指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#near
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @return {this}
-         */
-        near(key: string, location: NCMB.GeoPoint): this;
-        /**
-         * 検索範囲内(Km)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinKilometers
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(Km)
-         * @return {this}
-         */
-        withinKilometers(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(ml)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinMiles
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(ml)
-         * @return {this}
-         */
-        withinMiles(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲内(rad)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinRadians
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} location 原点とする位置情報
-         * @param {number} maxDistance 原点からの検索範囲(rad)
-         * @return {this}
-         */
-        withinRadians(key: string, location: NCMB.GeoPoint, maxDistance: number): this;
-        /**
-         * 検索範囲を南西と北東の位置情報から矩形で設定し、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
-         *
-         * @method Query#withinSquare
-         * @param {string} key 値を比較するキー
-         * @param {NCMB.GeoPoint} southWestVertex 検索矩形の南西側の頂点
-         * @param {NCMB.GeoPoint} northEastVertex 検索矩形の北東側の頂点
-         * @return {this}
-         */
-        withinSquare(key: string, southWestVertex: NCMB.GeoPoint, northEastVertex: NCMB.GeoPoint): this;
-        /**
-         * 複数の検索条件を設定し、いずれかに合致するオブジェクトを検索します。
-         * 配列で複数の条件を一度に設定でき、複数回実行することで検索条件を追加できます。
-         *
-         * @method Query#or
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        or(subqueries: any[] | Query): this;
-        /**
-         * サブクエリの検索結果が指定したサブキーに持つ値のいずれかと、指定したキーが合致するオブジェクトを検索します。
-         *
-         * @method Query#select
-         * @param {string} key メインクエリのクラスで値を比較するキー
-         * @param {string} subkey サブクエリの検索結果で値を比較するキー
-         * @param {Array|Query} subqueries 検索条件
-         * @return {this}
-         */
-        select(key: string, subkey: string, subqueries: any[] | Query): this;
-        /**
-         * 入力したオブジェクトの指定したキーに関連づけられているオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要があります。
-         *
-         * @method Query#relatedTo
-         * @param object
-         * @param {string} key オブジェクトが関連づけられているキー
-         * @return {this}
-         */
-        relatedTo(object: any, key: string): this;
-        /**
-         * サブクエリの検索結果のいずれかを、指定したキーにポインタで持つオブジェクトを検索します。
-         * objectはmobile backend に保存済みである必要がある。
-         *
-         * @method Query#inQuery
-         * @param {string} key ポインタを保存したキー
-         * @param {Query} subquery 検索条件
-         * @return {this}
-         */
-        inQuery(key: string, subquery: Query): this;
-        /**
-         * 指定したキーに設定されているポインタの中身ごと検索結果を取得します。
-         * 複数回実行した場合、最後に設定したキーが反映されます。複数のキーを指定することはできません。
-         *
-         * @method Query#include
-         * @param {string} key ポインタの中身を取得するキー
-         * @return {this}
-         */
-        include(key: string): this;
-        /**
-         * 検索結果の配列と共に、検索結果の件数を取得します。
-         * 検索結果の配列は最大100件までしか取得しませんが、countは検索結果の総件数を表示します。
-         * 検索結果配列にcountプロパティとして付加されます。
-         *
-         * @method Query#count
-         * @return {this}
-         */
-        count(): this;
-        /**
-         * 指定したキーの昇順にソートして検索結果を取得します。
-         * 複数回実行することで、複数のキーを指定できます。その場合、先に指定したキーが優先的にソートされます。
-         * フラグによって降順ソートも可能です。降順フラグはキーごとに設定できます。
-         *
-         * @method Query#order
-         * @param {string} key ソートするキー
-         * @param descending trueを指定した場合、降順でソートされる。省略可能。
-         * @return {this}
-         */
-        order(key: string, descending: any): this;
-        /**
-         * 検索結果の最大取得数を設定します。最小設定値は1、最大設定値は1000です。
-         *
-         * @method Query#limit
-         * @param {number} limit 最大取得件数
-         * @return {this}
-         */
-        limit(limit: number): this;
-        /**
-         * 検索結果の最初から指定した件数だけ除いた結果を取得するようにします。
-         *
-         * @method Query#skip
-         * @param {number} skip 検索結果から除く件数
-         * @return {this}
-         */
-        skip(skip: number): this;
-        /**
-         * objectIdから一意のオブジェクトを取得します。
-         *
-         * @method Query#fetchById
-         * @param {string} id 取得したいオブジェクトのobjectId
-         * @param {function} callback コールバック関数
-         * @return {Promise<any>} オブジェクト
-         */
-        fetchById(id: string, callback: (...params: any[]) => any): Promise<any>;
-        /**
-         * 検索条件に合致するオブジェクトのうち、先頭の一つだけを取得します。
-         *
-         * @method Query#fetch
-         * @param {function} callback コールバック関数
-         * @return {Promise<Object>} 検索結果に合致したオブジェクト
-         */
-        fetch(callback: (...params: any[]) => any): Promise<object>;
-        /**
-         * 検索条件に合致するオブジェクトをすべて取得します。
-         *
-         * @method Query#fetchAll
-         * @param {function} callback コールバック関数
-         * @return {Promise<Array>} 検索結果に合致したオブジェクトの配列
-         */
-        fetchAll(callback: (...params: any[]) => any): Promise<any[]>;
+        logout(callback?: (...params: any[]) => any): Promise<User>;
     }
     /**
     * 会員および会員権限によるオブジェクトへのアクセスの管理を扱うクラスです。
@@ -2512,10 +812,10 @@ declare namespace NCMB {
          * ユーザ名とパスワード認証でユーザを登録します。
          *
          * @method NCMB.User#signUpByAccount
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        signUpByAccount(callback: (...params: any[]) => any): Promise<this>;
+        signUpByAccount(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * SNS連携認証でユーザを登録します。
          * インスタンスのauthDataプロパティに適切なJSONオブジェクトが設定されている場合、providerおよびdataは省略可能です。
@@ -2524,34 +824,34 @@ declare namespace NCMB {
          * @method NCMB.User#signUpWith
          * @param {string} provider 連携するサービスプロバイダ名 facebook/twitter/google
          * @param {Object} data 認証に必要な情報を保持したJSON形式のオブジェクト
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        signUpWith(provider: string, data: any, callback: (...params: any[]) => any): Promise<this>;
+        signUpWith(provider: string, data: any, callback?: (...params: any[]) => any): Promise<this>;
         /**
          * メールアドレス認証ユーザの登録メールアドレス宛にパスワード再設定のメールを送信します。
          *
          * @method NCMB.User#requestPasswordReset
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<any>} APIレスポンス
          */
-        requestPasswordReset(callback: (...params: any[]) => any): Promise<any>;
+        requestPasswordReset(callback?: (...params: any[]) => any): Promise<any>;
         /**
          * ユーザ情報の更新を行います。
          *
          * @method NCMB.User#update
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        update(callback: (...params: any[]) => any): Promise<this>;
+        update(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * ユーザ情報の削除を行います。
          *
          * @method NCMB.User#delete
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<true>}
          */
-        delete(callback: (...params: any[]) => any): Promise<true>;
+        delete(callback?: (...params: any[]) => any): Promise<true>;
         /**
          * ログイン（セッショントークンの取得）を行います。
          * カレントユーザへの設定は行いません。
@@ -2560,10 +860,10 @@ declare namespace NCMB {
          * セッショントークンの期限切れが発生している場合、一度ログアウトしてから再度ログインしてください。
          *
          * @method NCMB.User#login
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        login(callback: (...params: any[]) => any): Promise<this>;
+        login(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * ログイン（セッショントークンの取得）を行います。
          * カレントユーザへの設定は行いません。
@@ -2572,10 +872,10 @@ declare namespace NCMB {
          * セッショントークンの期限切れが発生している場合、一度ログアウトしてから再度ログインしてください。
          *
          * @method NCMB.User#loginWithMailAddress
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        loginWithMailAddress(callback: (...params: any[]) => any): Promise<this>;
+        loginWithMailAddress(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * 匿名ユーザとしてログイン（セッショントークンの取得）を行います。
          * すでにセッショントークンを保持している場合、更新処理は行いません。
@@ -2584,10 +884,10 @@ declare namespace NCMB {
          *
          * @method NCMB.User#loginAsAnonymous
          * @param {string} uuid 端末固有のUUID
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        loginAsAnonymous(uuid: string, callback: (...params: any[]) => any): Promise<this>;
+        loginAsAnonymous(uuid: string, callback?: (...params: any[]) => any): Promise<this>;
         /**
          * SNS連携認証ユーザとしてログイン（セッショントークンの取得）を行います。
          * authDataプロパティをもつ場合、第一・第二引数を省略可能です。
@@ -2597,22 +897,22 @@ declare namespace NCMB {
          * セッショントークンの期限切れが発生している場合、一度ログアウトしてから再度ログインしてください。
          *
          * @method NCMB.User#loginWith
-         * @param {string} provider 連携するサービスプロバイダ名 facebook/twitter/google
-         * @param {Object} data 認証に必要な情報を保持したJSON形式のオブジェクト
-         * @param {function} callback コールバック関数
+         * @param {string} [provider] 連携するサービスプロバイダ名 facebook/twitter/google
+         * @param {Object} [data] 認証に必要な情報を保持したJSON形式のオブジェクト
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        loginWith(provider: string, data: any, callback: (...params: any[]) => any): Promise<this>;
+        loginWith(provider?: string, data?: any, callback?: (...params: any[]) => any): Promise<this>;
         /**
          * インスタンスのセッショントークンの破棄を行います。
          * カレントユーザに設定されているユーザをこのメソッドでログアウトした場合でもカレントユーザ情報は破棄されません。
          * そのままAPIリクエストを行った場合、不正なセッショントークン利用でエラーが返ります。
          *
          * @method NCMB.User#logout
-         * @param {function} callback コールバック関数
+         * @param {function} [callback] コールバック関数
          * @return {Promise<this>}
          */
-        logout(callback: (...params: any[]) => any): Promise<this>;
+        logout(callback?: (...params: any[]) => any): Promise<this>;
         /**
          * メールアドレスの確認を行っているかどうかを判別します。
          *
@@ -2680,6 +980,82 @@ declare namespace NCMB {
          */
         remove(key: string, objects: any): this;
     }
+}
+
+/**
+* すべてのNCMBクラスおよびメソッドを定義します。
+*
+* @class NCMB
+* @param {string} apikey アプリケーションキー。必須
+* @param {string} clientkey クライアントキー。必須
+* @param {Object} [config] 通信設定。省略可能
+ */
+declare class NCMB {
+    constructor(apikey: string, clientkey: string, config?: any);
+    /** @member {NCMB.UserConstructor} NCMB#User
+     */
+    User: NCMB.UserConstructor;
+    /** @member {NCMB.RoleConstructor} NCMB#Role
+     */
+    Role: NCMB.RoleConstructor;
+    /** @member {NCMB.File} NCMB#File
+     */
+    File: NCMB.File;
+    /** @member {NCMB.PushConstructor} NCMB#Push
+     */
+    Push: NCMB.PushConstructor;
+    /** @member {NCMB.InstallationConstructor} NCMB#Installation
+     */
+    Installation: NCMB.InstallationConstructor;
+    /** @member {NCMB.ScriptConstructor} NCMB#Script
+     */
+    Script: NCMB.ScriptConstructor;
+    /** @member {NCMB.AclConstructor} NCMB#Acl
+     */
+    Acl: NCMB.AclConstructor;
+    /** @member {NCMB.GeoPointConstructor} NCMB#GeoPoint
+     */
+    GeoPoint: NCMB.GeoPointConstructor;
+    /** @member {NCMB.RelationConstructor} NCMB#Relation
+     */
+    Relation: NCMB.RelationConstructor;
+    /**
+     * 指定したキーに値を設定します。
+     *
+     * @method NCMB#set
+     * @param {string} key 値を設定したいキー
+     * @param value キーに設定する値
+     * @return {this}
+     */
+    set(key: string, value: any): this;
+    /**
+     * 指定したキー設定されている値を取得します。
+     *
+     * @method NCMB#get
+     * @param {string} key 値を取得したいキー
+     * @return {any} this[key] keyに対応する値
+     */
+    get(key: string): any;
+    /**
+     * レスポンスシグネチャーをチェック許可を設定します。
+     *
+     * @method NCMB#enableResponseValidation
+     * @param {boolean} value true/falseでチェック可否設定する値
+     */
+    enableResponseValidation(value: boolean): void;
+    /**
+     * レスポンスシグネチャーをチェック許可設定を取得します
+     *
+     * @method NCMB#getResponseValidation
+     * @return {object} sResponseValidation　レスポンスシグネチャーをチェック可否設定する値
+     */
+    getResponseValidation(): any;
+    /**
+     * @method NCMB#DataStore
+     * @param {string} name
+     * @returns {NCMB.DataStoreConstructor}
+     */
+    DataStore(name: string): NCMB.DataStoreConstructor;
 }
 
 /**
@@ -2757,13 +1133,13 @@ declare class Operation {
 * DataStore, User, Role, Fileクラスから呼び出し、それぞれのクラスメソッドとして利用します。
 * 検索条件を設定するメソッドに続けてfetch/fetchAllをメソッドチェーンで実行して利用します。
 *
-* @class Query
+* @class Query<T>
  */
-declare class Query {
+declare class Query<T> {
     /**
      * クエリを自分で記述して設定します。
      *
-     * @method Query#where
+     * @method Query<T>#where
      * @param {Object} where JSON形式のクエリオブジェクト
      * @return {this}
      */
@@ -2771,7 +1147,7 @@ declare class Query {
     /**
      * 指定したキーの値が条件と等しいオブジェクトを検索します。
      *
-     * @method Query#equalTo
+     * @method Query<T>#equalTo
      * @param {string} key 値を比較するキー
      * @param value 比較する値
      * @return {this}
@@ -2780,7 +1156,7 @@ declare class Query {
     /**
      * 指定したキーの値が条件と等しくないオブジェクトを検索します。
      *
-     * @method Query#notEqualTo
+     * @method Query<T>#notEqualTo
      * @param {string} key 値を比較するキー
      * @param value 比較する値
      * @return {this}
@@ -2789,7 +1165,7 @@ declare class Query {
     /**
      * 指定したキーの値が条件より小さいオブジェクトを検索します。
      *
-     * @method Query#lessThan
+     * @method Query<T>#lessThan
      * @param {string} key 値を比較するキー
      * @param value 比較する値
      * @return {this}
@@ -2798,7 +1174,7 @@ declare class Query {
     /**
      * 指定したキーの値が条件以下のオブジェクトを検索します。
      *
-     * @method Query#lessThanOrEqualTo
+     * @method Query<T>#lessThanOrEqualTo
      * @param {string} key 値を比較するキー
      * @param value 比較する値
      * @return {this}
@@ -2807,7 +1183,7 @@ declare class Query {
     /**
      * 指定したキーの値が条件より大きいオブジェクトを検索します。
      *
-     * @method Query#greaterThan
+     * @method Query<T>#greaterThan
      * @param {string} key 値を比較するキー
      * @param value 比較する値
      * @return {this}
@@ -2816,7 +1192,7 @@ declare class Query {
     /**
      * 指定したキーの値が条件以上のオブジェクトを検索します。
      *
-     * @method Query#greaterThanOrEqualTo
+     * @method Query<T>#greaterThanOrEqualTo
      * @param {string} key 値を比較するキー
      * @param value 比較する値
      * @return {this}
@@ -2825,7 +1201,7 @@ declare class Query {
     /**
      * 指定したキーの値が、条件の配列内のいずれかと等しいオブジェクトを検索します。
      *
-     * @method Query#in
+     * @method Query<T>#in
      * @param {string} key 値を比較するキー
      * @param {Array} values 比較する値
      * @return {this}
@@ -2834,7 +1210,7 @@ declare class Query {
     /**
      * 指定したキーの値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
      *
-     * @method Query#notIn
+     * @method Query<T>#notIn
      * @param {string} key 値を比較するキー
      * @param {Array} values 比較する値
      * @return {this}
@@ -2844,7 +1220,7 @@ declare class Query {
      * 指定したキーに値が存在するオブジェクトを検索します。
      * existにfalseが設定されている場合、指定したキーに値が存在しないオブジェクトを検索します。
      *
-     * @method Query#exists
+     * @method Query<T>#exists
      * @param {string} key 値を比較するキー
      * @param {boolean} exist falseを設定した場合、値が存在しないオブジェクトを検索する。省略可能。
      * @return {this}
@@ -2853,7 +1229,7 @@ declare class Query {
     /**
      * 指定したキーの値が指定した正規表現に合致する存在するオブジェクトを検索します。
      *
-     * @method Query#regularExpressionTo
+     * @method Query<T>#regularExpressionTo
      * @param {string} key 値を比較するキー
      * @param {string} regex 検索する正規表現
      * @return {this}
@@ -2862,7 +1238,7 @@ declare class Query {
     /**
      * 指定したキーの配列内の値のいずれかが、条件の配列内のいずれかと等しいオブジェクトを検索します。
      *
-     * @method Query#inArray
+     * @method Query<T>#inArray
      * @param {string} key 値を比較するキー
      * @param {Array} values 比較する値
      * @return {this}
@@ -2871,7 +1247,7 @@ declare class Query {
     /**
      * 指定したキーの配列内の値が、条件の配列内のいずれとも等しくないオブジェクトを検索します。
      *
-     * @method Query#notInArray
+     * @method Query<T>#notInArray
      * @param {string} key 値を比較するキー
      * @param {Array} values 比較する値
      * @return {this}
@@ -2880,7 +1256,7 @@ declare class Query {
     /**
      * 指定したキーの配列内の値が、条件の配列内のすべての値を含むオブジェクトを検索します。
      *
-     * @method Query#allInArray
+     * @method Query<T>#allInArray
      * @param {string} key 値を比較するキー
      * @param {Array} values 比較する値
      * @return {this}
@@ -2889,7 +1265,7 @@ declare class Query {
     /**
      * 指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
      *
-     * @method Query#near
+     * @method Query<T>#near
      * @param {string} key 値を比較するキー
      * @param {NCMB.GeoPoint} location 原点とする位置情報
      * @return {this}
@@ -2898,7 +1274,7 @@ declare class Query {
     /**
      * 検索範囲内(Km)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
      *
-     * @method Query#withinKilometers
+     * @method Query<T>#withinKilometers
      * @param {string} key 値を比較するキー
      * @param {NCMB.GeoPoint} location 原点とする位置情報
      * @param {number} maxDistance 原点からの検索範囲(Km)
@@ -2908,7 +1284,7 @@ declare class Query {
     /**
      * 検索範囲内(ml)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
      *
-     * @method Query#withinMiles
+     * @method Query<T>#withinMiles
      * @param {string} key 値を比較するキー
      * @param {NCMB.GeoPoint} location 原点とする位置情報
      * @param {number} maxDistance 原点からの検索範囲(ml)
@@ -2918,7 +1294,7 @@ declare class Query {
     /**
      * 検索範囲内(rad)で、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
      *
-     * @method Query#withinRadians
+     * @method Query<T>#withinRadians
      * @param {string} key 値を比較するキー
      * @param {NCMB.GeoPoint} location 原点とする位置情報
      * @param {number} maxDistance 原点からの検索範囲(rad)
@@ -2928,7 +1304,7 @@ declare class Query {
     /**
      * 検索範囲を南西と北東の位置情報から矩形で設定し、指定したキーの位置情報が指定した位置に近い順でオブジェクトを検索します。
      *
-     * @method Query#withinSquare
+     * @method Query<T>#withinSquare
      * @param {string} key 値を比較するキー
      * @param {NCMB.GeoPoint} southWestVertex 検索矩形の南西側の頂点
      * @param {NCMB.GeoPoint} northEastVertex 検索矩形の北東側の頂点
@@ -2939,26 +1315,26 @@ declare class Query {
      * 複数の検索条件を設定し、いずれかに合致するオブジェクトを検索します。
      * 配列で複数の条件を一度に設定でき、複数回実行することで検索条件を追加できます。
      *
-     * @method Query#or
-     * @param {Array|Query} subqueries 検索条件
+     * @method Query<T>#or
+     * @param {Array<Query<T>>|Query<T>} subqueries 検索条件
      * @return {this}
      */
-    or(subqueries: any[] | Query): this;
+    or(subqueries: Query<T>[] | Query<T>): this;
     /**
      * サブクエリの検索結果が指定したサブキーに持つ値のいずれかと、指定したキーが合致するオブジェクトを検索します。
      *
-     * @method Query#select
+     * @method Query<T>#select
      * @param {string} key メインクエリのクラスで値を比較するキー
      * @param {string} subkey サブクエリの検索結果で値を比較するキー
-     * @param {Array|Query} subqueries 検索条件
+     * @param {Array<Query<T>>|Query<T>} subqueries 検索条件
      * @return {this}
      */
-    select(key: string, subkey: string, subqueries: any[] | Query): this;
+    select(key: string, subkey: string, subqueries: Query<T>[] | Query<T>): this;
     /**
      * 入力したオブジェクトの指定したキーに関連づけられているオブジェクトを検索します。
      * objectはmobile backend に保存済みである必要があります。
      *
-     * @method Query#relatedTo
+     * @method Query<T>#relatedTo
      * @param object
      * @param {string} key オブジェクトが関連づけられているキー
      * @return {this}
@@ -2968,17 +1344,17 @@ declare class Query {
      * サブクエリの検索結果のいずれかを、指定したキーにポインタで持つオブジェクトを検索します。
      * objectはmobile backend に保存済みである必要がある。
      *
-     * @method Query#inQuery
+     * @method Query<T>#inQuery
      * @param {string} key ポインタを保存したキー
-     * @param {Query} subquery 検索条件
+     * @param {Query<T>} subquery 検索条件
      * @return {this}
      */
-    inQuery(key: string, subquery: Query): this;
+    inQuery(key: string, subquery: Query<T>): this;
     /**
      * 指定したキーに設定されているポインタの中身ごと検索結果を取得します。
      * 複数回実行した場合、最後に設定したキーが反映されます。複数のキーを指定することはできません。
      *
-     * @method Query#include
+     * @method Query<T>#include
      * @param {string} key ポインタの中身を取得するキー
      * @return {this}
      */
@@ -2988,7 +1364,7 @@ declare class Query {
      * 検索結果の配列は最大100件までしか取得しませんが、countは検索結果の総件数を表示します。
      * 検索結果配列にcountプロパティとして付加されます。
      *
-     * @method Query#count
+     * @method Query<T>#count
      * @return {this}
      */
     count(): this;
@@ -2997,7 +1373,7 @@ declare class Query {
      * 複数回実行することで、複数のキーを指定できます。その場合、先に指定したキーが優先的にソートされます。
      * フラグによって降順ソートも可能です。降順フラグはキーごとに設定できます。
      *
-     * @method Query#order
+     * @method Query<T>#order
      * @param {string} key ソートするキー
      * @param descending trueを指定した場合、降順でソートされる。省略可能。
      * @return {this}
@@ -3006,7 +1382,7 @@ declare class Query {
     /**
      * 検索結果の最大取得数を設定します。最小設定値は1、最大設定値は1000です。
      *
-     * @method Query#limit
+     * @method Query<T>#limit
      * @param {number} limit 最大取得件数
      * @return {this}
      */
@@ -3014,7 +1390,7 @@ declare class Query {
     /**
      * 検索結果の最初から指定した件数だけ除いた結果を取得するようにします。
      *
-     * @method Query#skip
+     * @method Query<T>#skip
      * @param {number} skip 検索結果から除く件数
      * @return {this}
      */
@@ -3022,104 +1398,28 @@ declare class Query {
     /**
      * objectIdから一意のオブジェクトを取得します。
      *
-     * @method Query#fetchById
+     * @method Query<T>#fetchById
      * @param {string} id 取得したいオブジェクトのobjectId
-     * @param {function} callback コールバック関数
-     * @return {Promise<any>} オブジェクト
+     * @param {function} [callback] コールバック関数
+     * @return {Promise<T>} オブジェクト
      */
-    fetchById(id: string, callback: (...params: any[]) => any): Promise<any>;
+    fetchById(id: string, callback?: (...params: any[]) => any): Promise<T>;
     /**
      * 検索条件に合致するオブジェクトのうち、先頭の一つだけを取得します。
      *
-     * @method Query#fetch
-     * @param {function} callback コールバック関数
-     * @return {Promise<Object>} 検索結果に合致したオブジェクト
+     * @method Query<T>#fetch
+     * @param {function} [callback] コールバック関数
+     * @return {Promise<T>} 検索結果に合致したオブジェクト
      */
-    fetch(callback: (...params: any[]) => any): Promise<object>;
+    fetch(callback?: (...params: any[]) => any): Promise<T>;
     /**
      * 検索条件に合致するオブジェクトをすべて取得します。
      *
-     * @method Query#fetchAll
-     * @param {function} callback コールバック関数
-     * @return {Promise<Array>} 検索結果に合致したオブジェクトの配列
+     * @method Query<T>#fetchAll
+     * @param {function} [callback] コールバック関数
+     * @return {Promise<Array<T>>} 検索結果に合致したオブジェクトの配列
      */
-    fetchAll(callback: (...params: any[]) => any): Promise<any[]>;
-}
-
-/**
-* すべてのNCMBクラスおよびメソッドを定義します。
-*
-* @class NCMB
-* @param {string} apikey アプリケーションキー。必須
-* @param {string} clientkey クライアントキー。必須
-* @param {Object} config 通信設定。省略可能
- */
-declare class NCMB {
-    constructor(apikey: string, clientkey: string, config: any);
-    /** @member {NCMB.UserConstructor} NCMB#User
-     */
-    User: NCMB.UserConstructor;
-    /** @member {NCMB.RoleConstructor} NCMB#Role
-     */
-    Role: NCMB.RoleConstructor;
-    /** @member {NCMB.File} NCMB#File
-     */
-    File: NCMB.File;
-    /** @member {NCMB.PushConstructor} NCMB#Push
-     */
-    Push: NCMB.PushConstructor;
-    /** @member {NCMB.InstallationConstructor} NCMB#Installation
-     */
-    Installation: NCMB.InstallationConstructor;
-    /** @member {NCMB.ScriptConstructor} NCMB#Script
-     */
-    Script: NCMB.ScriptConstructor;
-    /** @member {NCMB.AclConstructor} NCMB#Acl
-     */
-    Acl: NCMB.AclConstructor;
-    /** @member {NCMB.GeoPointConstructor} NCMB#GeoPoint
-     */
-    GeoPoint: NCMB.GeoPointConstructor;
-    /** @member {NCMB.RelationConstructor} NCMB#Relation
-     */
-    Relation: NCMB.RelationConstructor;
-    /**
-     * 指定したキーに値を設定します。
-     *
-     * @method NCMB#set
-     * @param {string} key 値を設定したいキー
-     * @param value キーに設定する値
-     * @return this
-     */
-    set(key: string, value: any): any;
-    /**
-     * 指定したキー設定されている値を取得します。
-     *
-     * @method NCMB#get
-     * @param {string} key 値を取得したいキー
-     * @return this[key] keyに対応する値
-     */
-    get(key: string): any;
-    /**
-     * レスポンスシグネチャーをチェック許可を設定します。
-     *
-     * @method NCMB#enableResponseValidation
-     * @param {boolean} value true/falseでチェック可否設定する値
-     */
-    enableResponseValidation(value: boolean): void;
-    /**
-     * レスポンスシグネチャーをチェック許可設定を取得します
-     *
-     * @method NCMB#getResponseValidation
-     * @return sResponseValidation　レスポンスシグネチャーをチェック可否設定する値
-     */
-    getResponseValidation(): any;
-    /**
-     * @method NCMB#DataStore
-     * @param {string} name
-     * @returns {NCMB.DataStoreConstructor}
-     */
-    DataStore(name: string): NCMB.DataStoreConstructor;
+    fetchAll(callback?: (...params: any[]) => any): Promise<T[]>;
 }
 
 export = NCMB;
